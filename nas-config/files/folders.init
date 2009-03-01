@@ -1,0 +1,6 @@
+#!/bin/sh
+mkdir -p /mnt/usbdrive/ftp
+mkdir -p /mnt/usbdrive/http
+mkdir -p /mnt/torrents
+chmod 777 /mnt/usbdrive
+chmod -R 777 /mnt/usbdrive/*

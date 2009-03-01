@@ -9,9 +9,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=transmission
 PKG_VERSION:=1.50
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE:=transmission-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://download.m0k.org/transmission/files
 PKG_MD5SUM:=9342004249f09d5e8f87f9bd1476fa53
 
@@ -19,16 +19,16 @@ PKG_FIXUP = libtool
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/transmission
+define Package/transmission-web
   SUBMENU:=BitTorrent
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+libcurl +libopenssl +libpthread
-  TITLE:=A free, lightweight BitTorrent client
+  TITLE:=A free, lightweight BitTorrent client with webgui
   URL:=http://www.transmissionbt.com
 endef
 
-define Package/tranmission/description
+define Package/tranmission-web/description
  Transmission is a simple BitTorrent client.
  It features a very simple, intuitive interface
  on top on an efficient, cross-platform back-end.
@@ -46,7 +46,7 @@ define Build/Compile
 		CFLAGS="$(TARGET_CFLAGS)"
 endef
 
-define Package/transmission/install
+define Package/transmission-web/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/daemon/transmission-daemon $(1)/usr/sbin/
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -56,7 +56,8 @@ define Package/transmission/install
 	$(CP) $(PKG_BUILD_DIR)/web/* $(1)/www/transmission/
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) ./files/transmission.init $(1)/etc/init.d/transmission
-	$(CP) ./files/* $(1)/
+	$(INSTALL_DIR) $(1)/etc/transmission-daemon
+	$(INSTALL_DATA) ./files/settings.json $(1)/etc/transmission-daemon/settings.json
 endef
 
-$(eval $(call BuildPackage,transmission))
+$(eval $(call BuildPackage,transmission-web))
