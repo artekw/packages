@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/libpar2
   SECTION:=net
-  CATEGORY:=Network
+  CATEGORY:=Libraries
   DEPENDS:=+libsigc++
   TITLE:=A library for performing common tasks related to PAR recovery sets
 endef
