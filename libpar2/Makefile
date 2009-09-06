@@ -14,7 +14,7 @@ PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/parchive
-#PKG_MD5SUM:=9342004249f09d5e8f87f9bd1476fa53
+PKG_MD5SUM:=94c6df4e38efe08056ecde2a04e0be91
 
 PKG_FIXUP:=libtool
 
@@ -22,8 +22,8 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/libpar2
   SECTION:=net
-  CATEGORY:=Libraries
-  DEPENDS:=+libsigc++
+  CATEGORY:=Network
+  DEPENDS:=+libsigcxx
   TITLE:=A library for performing common tasks related to PAR recovery sets
 endef
 

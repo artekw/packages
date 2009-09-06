@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nzbget
-PKG_VERSION:=0.6.0-testing
+PKG_VERSION:=0.6.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-r288.tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/nzbget
-#PKG_MD5SUM:=9342004249f09d5e8f87f9bd1476fa53
+PKG_MD5SUM:=eb95b3930abffb570e37af8d284c1f9d
 
 PKG_FIXUP:=libtool
 
@@ -25,8 +25,9 @@ TARGET_CFLAGS += $(FPIC)
 define Package/nzbget
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libxml2 +libstdcpp +libpar2
-  TITLE:=A command-line client/server based binary newsgrabber for nzb-files.
+  DEPENDS:=+libxml2 +libstdcpp +libpar2 +openssl
+  URL:=http://nzbget.sourceforge.net/
+  TITLE:=Binary newsgrabber
 endef
 
 define Package/nzbget/description
@@ -37,24 +38,23 @@ CONFIGURE_ARGS += \
 	--disable-static \
 	--disable-nls \
 	--disable-curses \
-	--disable-tls \
-    --with-libxml2-includes=$(STAGING_DIR)/usr/include/libxml2 \
-	--with-libxml2-libraries=$(STAGING_DIR)/usr/lib \
+	--with-tlslib=OpenSSL \
 	--with-libpar2-includes=$(STAGING_DIR)/usr/include/libpar2 \
 	--with-libpar2-libraries=$(STAGING_DIR)/usr/lib \
 	--with-libsigc-includes=$(STAGING_DIR)/usr/include/sigc++-2.0 \
 	--with-libsigc-libraries=$(STAGING_DIR)/usr/lib \
+	--with-openssl-includes=$(STAGING_DIR)/usr/include \
+	--with-openssl-libraries=$(STAGING_DIR)/usr/lib \
 	, \
 	PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/pkgconfig"
-	
+
 CONFIGURE_VARS += \
 	ac_cv_header_regex_h=no \
-
+	CPPFLAGS="-I$(STAGING_DIR)/usr/include/libxml2 $$$$CPPFLAGS" 
+	
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) \
 	$(TARGET_CONFIGURE_OPTS) \
-	LDFLAGS="$(TARGET_LDFLAGS) " \
-	CPPFLAGS="$(TARGET_CPPFLAGS)" \
 	DESTDIR="$(PKG_INSTALL_DIR)" \
 	install all
 endef
