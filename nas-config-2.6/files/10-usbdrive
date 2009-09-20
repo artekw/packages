@@ -1,0 +1,18 @@
+# Copyright (C) 2009 arteq
+
+case "$ACTION" in
+        add)
+                logger "mounting usb drive at /mnt/usbdrive"
+                mount /dev/discs/disc0/part1 /mnt/usbdrive
+                mkdir -p /mnt/usbdrive/ftp
+                mkdir -p /mnt/usbdrive/http
+                mkdir -p /mnt/usbdrive/torrents
+                mkdir -p /mnt/usbdrive/rapid
+                chmod 777 /mnt/usbdrive
+                chmod -R 777 /mnt/usbdrive/*
+                ;;
+        remove)
+                logger "umount usb drive"
+                umount /mnt/usbdrive
+                ;;
+esac 

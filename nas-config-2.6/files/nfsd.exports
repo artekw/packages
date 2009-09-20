@@ -1,0 +1,1 @@
+/mnt/usbdrive	*(rw,all_squash,insecure,sync)
