@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2010 OpenWrt
+
+START=90
+
+start() {
+	/usr/share/sabnzbd/SABnzbd.py -d
+}
+stop() {
+	killall -9 SABnzbd
+}
