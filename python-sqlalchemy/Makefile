@@ -25,7 +25,7 @@ define Package/python-sqlalchemy
   SUBMENU:=Python
   TITLE:=The Python SQL Toolkit and Object Relational Mapper
   URL:=http://www.sqlalchemy.org/
-  DEPENDS:=+python +uclibcxx +python-mysql +python-sqlite
+  DEPENDS:=+python +python-mysql +python-sqlite
 endef
 
 define Package/python-sqlalchemy/description
