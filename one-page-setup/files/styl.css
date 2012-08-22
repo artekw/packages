@@ -1,0 +1,98 @@
+body, html {
+/*	background			: #148 url("../img/rings.png") no-repeat; */
+	background			: #222;
+	color				: #fff;
+	font-family			: Verdana, Tahoma, Arial, Trebuchet MS, Sans-Serif, Georgia, "Courier", Times New Roman, Serif;
+	font-size			: 12px;
+	margin				: 20px 0px; 
+	padding				: 0px;
+}
+a:link,a:visited {
+	color				: #000;
+	text-decoration		: none;
+	padding-left		: 25px;
+	background			: url("../img/expand.png") no-repeat -5px -6px;
+}
+a:hover {
+	color				: #000;
+	text-decoration		: underline;
+	padding-left		: 25px;
+	background			: url("../img/expand.png") no-repeat -5px -6px;
+}
+.clear {
+	clear				: both;
+}
+#cont {
+	margin				: 0 auto;
+}
+#center { 
+	margin				: 0px auto;
+	width				: 400px;
+	border				: 1px dashed #fff;
+	padding				: 15px;
+	background			: #999;
+}
+.title {
+	font-size			: 18px;
+	letter-spacing		: 155%;
+	color				: #FFF;
+	text-align			: left;
+	padding-bottom		: 10px;
+}
+h1 {
+	font-family			: Helvetica, Arial;
+	color				: #FFF;
+	padding				: 5px;
+	margin				: 0;
+	font-weight			: 120;
+	text-align			: center;
+}
+h4 {
+	font-family			: Helvetica, Arial;
+	color				: #FFF;
+	padding				: 5px;
+	margin				: 0;
+	font-weight			: 120;
+}
+#box {
+	text-align			: right;
+}
+.box-edit {
+	border				: 1px dotted #fff;
+	padding				: 10px;
+	margin				: 5px 5px 5px 5px;
+	width				: 360px;
+}
+.box-info {
+	border				: 1px dashed #fff;
+	padding				: 10px;
+	margin				: 5px 5px 5px 5px;
+	width				: 360px;
+}
+
+label {
+	font-weight			: bold;
+	color				: #00d;
+}
+#thanks {
+	clear				: both;
+	float 				: right;
+	font-size			: 10px;
+	padding				: 0;
+}
+#thanks a:link, #thanks a:visited {
+	color				: #000;
+	text-decoration		: none;
+	background			: none;
+	padding				: 0;
+}
+#thanks a:hover {
+	color				: #666;
+	text-decoration		: underline;
+}
+#info {
+	font-family			: monospace;
+	position			: absolute; 
+	bottom				: 5px;
+	left				: 5px
+}

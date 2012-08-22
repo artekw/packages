@@ -1,0 +1,11 @@
+#!/bin/sh
+# Copyright (C) 2006-2011 arteq
+
+. /usr/lib/shape
+if [ `uci get simpleshaper.@settings[0].enabled` != "0" ]; then
+   echo "Start Simpleshaper..."
+   sh_init
+else
+   echo "Disabled?"
+fi
+

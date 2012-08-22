@@ -1,0 +1,21 @@
+#!/bin/sh
+# Copyright (C) 2006-2011 arteq
+
+echo "************"
+echo "**Download**"
+echo "************"
+echo ""
+tc -s class show dev br-lan | grep htb
+echo""
+echo "************"
+echo "***Upload***"
+echo "************"
+echo ""
+tc -s class show dev `uci get network.wan.ifname -P /var/state/` | grep htb
+echo""
+echo "***************************"
+echo "***iptables mangle table***"
+echo "***************************"
+echo ""
+iptables -L -t mangle -n -v
+

@@ -1,0 +1,124 @@
+#!/bin/sh
+# Copyright (C) 2006-2010 arteq <arteqw@gmail.com>
+# Documentation http://openwrt.pl or http://artekw.net
+
+. /etc/functions.sh
+
+IPT="echo iptables"
+IPT=iptables
+TC="echo tc"
+TC=tc
+
+modules() {
+	insmod cls_fw >&- 2>&-	
+	insmod sch_htb >&- 2>&-
+	insmod sch_sfq >&- 2>&-
+	insmod ipt_CONNMARK >&- 2>&-
+	insmod ipt_length >&- 2>&-
+	insmod cls_u32 >&- 2>&-
+	insmod imq numdevs=1 >&- 2>&-
+	insmod ipt_IMQ >&- 2>&-
+#	insmod ipt_ipp2p >&- 2>&-
+}
+
+setting_rule() {
+	local config="$1"
+
+	config_get LAN lan ifname
+
+	local line_download
+	local line_upload
+
+	config_get line_download $1 line_download
+	config_get line_upload $1 line_upload
+
+	$TC qdisc add dev "$LAN" root handle 1: htb default 10
+	$TC qdisc add dev imq0 root handle 1: htb default 10
+	$TC class add dev "$LAN" parent 1: classid 1:1 htb rate "$line_download"kbit
+	$TC class add dev imq0 parent 1: classid 1:1 htb rate "$line_upload"kbit
+}
+
+tc_rule() {
+	local config="$1"
+	
+	local ip_addr
+	local guaranted_dl
+	local guaranted_ul
+	local max_dl
+	local max_ul
+	local prio
+	local queue
+
+	config_get ip_addr $1 ip_addr
+	config_get guaranted_dl $1 guaranted_dl
+	config_get guaranted_ul $1 guaranted_ul
+	config_get max_dl $1 max_dl
+	config_get max_ul $1 max_ul
+	config_get prio $1 prio
+	config_get queue $1 queue
+	config_get LAN lan ifname
+	
+	add_dl_rule() {
+		# echo "dl rules for" $ip_addr
+		$TC class add dev "$LAN" parent 1:1 classid 1:"$queue" htb rate "$guaranted_dl"kbit ceil "$max_dl"kbit prio "$prio"
+		$TC filter add dev "$LAN" protocol ip parent 1: u32 match ip dst "$ip_addr" flowid 1:"$queue"
+		$TC qdisc add dev "$LAN" parent 1:"$queue" handle "$queue":0 sfq perturb 10
+
+		}
+	add_ul_rule() {
+		# echo "ul rules for" $ip_addr
+		$TC class add dev imq0 parent 1:1 classid 1:"$queue" htb rate "$guaranted_ul"kbit ceil "$max_ul"kbit prio "$prio"
+		$TC filter add dev imq0 protocol ip parent 1: u32 match ip src "$ip_addr" flowid 1:"$queue"
+		$TC qdisc add dev imq0 parent 1:"$queue" handle "$queue":0 sfq perturb 10
+		}
+#	add_ipt_rule() {
+#		$IPT -t filter -I FORWARD -p tcp -s "$ip_addr" -m connlimit --connlimit-above "$conn_limit" -j REJECT
+#	}
+	
+	
+add_dl_rule
+add_ul_rule
+#add_ipt_rule
+}
+
+ipt_rules() {
+	local config="$1"
+	local subnet
+	
+	config_get subnet $1 subnet
+	config_get LAN lan ifname
+
+	ip link set imq0 up
+	$IPT -t mangle -A POSTROUTING ! -s "$subnet"
+        $IPT -t mangle -A PREROUTING -i "$LAN" -j IMQ --todev 0
+	}	
+
+sh_modules(){
+        echo "Loading modules..."
+        modules
+}
+
+sh_init() {
+        include /lib/network
+        scan_interfaces
+
+	config_load simpleshaper	
+	modules
+	echo "Delete old rules..."
+	sh_stop
+	echo "Reload settings..."
+	config_foreach setting_rule settings
+	echo "Reload tc rules..."
+	config_foreach tc_rule shape
+	echo "Reload iptables rules..."
+	config_foreach ipt_rules settings
+}
+
+sh_stop() {
+	config_get LAN lan ifname
+
+	$IPT -t mangle -F
+	$IPT -t mangle -X 
+	$TC qdisc del dev "$LAN" root 2>&- >&-
+	$TC qdisc del root dev imq0 2>&- >&-
+	}

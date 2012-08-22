@@ -1,0 +1,8 @@
+#!/bin/sh
+# Copyright (C) 2006-2011 arteq
+
+. /usr/lib/shape
+echo "Stop Simpleshaper..."
+include /lib/network
+scan_interfaces
+sh_stop
