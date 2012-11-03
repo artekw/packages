@@ -28,7 +28,7 @@ define Package/luajson
   CATEGORY:=Languages
   TITLE:=LuaJson
   URL:=https://github.com/harningt/luajson/
-  DEPENDS:=+lua
+  DEPENDS:=+lua +lpeg
 endef
 
 define Package/luajson/description
