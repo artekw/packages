@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/simpleshaper
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+tc +ip +kmod-sched +iptables-mod-conntrack-extra +optables-mod-ipopt
+  DEPENDS:=+tc +ip +kmod-sched +iptables-mod-conntrack-extra +iptables-mod-ipopt
   TITLE:=Very simple HTB based traffic shapper.
   URL:=http://openwrt.pl/doku.php/software:pasmo#simpleshaper
   PKGARCH:=all
