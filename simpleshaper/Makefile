@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=simpleshaper
 PKG_VERSION:=0.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -19,7 +19,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/simpleshaper
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+tc +ip +kmod-sched +iptables-mod-conntrack-extra
+  DEPENDS:=+tc +ip +kmod-sched +iptables-mod-conntrack-extra +optables-mod-ipopt
   TITLE:=Very simple HTB based traffic shapper.
   URL:=http://openwrt.pl/doku.php/software:pasmo#simpleshaper
   PKGARCH:=all
