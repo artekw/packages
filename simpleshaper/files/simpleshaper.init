@@ -1,5 +1,5 @@
 #!/bin/sh /etc/rc.common
-# Copyright (C) 2006-2011 arteq
+# Copyright (C) 2006-2015 arteq
 
 START=99
 

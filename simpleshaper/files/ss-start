@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2006-2011 arteq
+# Copyright (C) 2006-2015 arteq
 
 . /usr/lib/shape
 if [ `uci get simpleshaper.@settings[0].enabled` != "0" ]; then

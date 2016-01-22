@@ -1,12 +1,12 @@
 #!/bin/sh
-# Copyright (C) 2006-2011 arteq <arteqw@gmail.com>
-# Documentation http://openwrt.pl or http://artekw.net
+# Copyright (C) 2006-2015 arteq <arteqw@gmail.com>
+# Documentation https://github.com/artekw/packages/tree/master/simpleshaper
 # Thanks for shibby & obsy for all suggestion on that project
 
 # global
 clients=1
 
-. /etc/functions.sh
+. /lib/functions.sh
 
 IPT="echo iptables"
 IPT=iptables

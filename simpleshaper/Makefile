@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2011 arteq <arteqw@gmail.com>
+# Copyright (C) 2006-2015 arteq <arteqw@gmail.com>
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=simpleshaper
 PKG_VERSION:=0.5
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
@@ -21,7 +21,7 @@ define Package/simpleshaper
   CATEGORY:=Network
   DEPENDS:=+tc +ip +kmod-sched +iptables-mod-conntrack-extra +iptables-mod-ipopt
   TITLE:=Very simple HTB based traffic shapper.
-  URL:=http://openwrt.pl/doku.php/software:pasmo#simpleshaper
+  URL:=https://github.com/artekw/packages/tree/master/simpleshaper
   PKGARCH:=all
 endef
 
